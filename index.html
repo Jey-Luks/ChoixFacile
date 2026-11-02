@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ChoixFacile — Trop d'hésitations ? Laisse la roulette décider.">
+  <title>ChoixFacile — Trop d'hésitations ? Laisse la roulette décider.</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%236C4CF1'/%3E%3Ccircle cx='32' cy='32' r='11' fill='%23FFFFFF'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#mainContent" data-i18n="a11y.skip">Aller au contenu principal</a>
+
+  <!-- ============================ EN-TÊTE ============================ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <button type="button" class="brand" id="brandHome" data-i18n-aria="a11y.home" aria-label="Aller à l'accueil">
+        <span class="brand-logo" aria-hidden="true"></span>
+        <span class="brand-name">ChoixFacile</span>
+      </button>
+
+      <nav class="header-nav" aria-label="Navigation principale" data-i18n-aria="a11y.nav">
+        <button type="button" class="nav-link active" id="navHome" data-i18n="nav.home">Accueil</button>
+        <button type="button" class="nav-link" id="navHistory" data-i18n="nav.history">Historique</button>
+
+        <div class="lang-switch" role="group" aria-label="Langue" data-i18n-aria="settings.language">
+          <button type="button" class="lang-btn active" data-lang="fr" aria-pressed="true">FR</button>
+          <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">ENG</button>
+        </div>
+
+        <button type="button" class="icon-btn" id="btnSettings" data-i18n-aria="nav.settings" aria-label="Paramètres" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="site-main" id="mainContent">
+
+    <!-- ============================ ACCUEIL ============================ -->
+    <section class="view active" id="viewHome">
+      <div class="home-layout">
+
+        <!-- Roulette -->
+        <section class="wheel-side" aria-label="Roulette" data-i18n-aria="a11y.wheelArea">
+          <div class="wheel-stage">
+            <div class="wheel-pointer" aria-hidden="true"></div>
+            <div class="wheel-wrap" id="wheelWrap">
+              <canvas id="wheelCanvas" width="520" height="520"></canvas>
+              <button type="button" class="spin-btn" id="spinBtn" data-i18n="wheel.spin">FAIRE TOURNER</button>
+            </div>
+            <p class="wheel-empty" id="wheelEmpty" data-i18n="wheel.empty" hidden>Ajoutez des options pour construire la roue</p>
+          </div>
+
+          <div class="stats-row">
+            <div class="stat-chip">
+              <span class="stat-value" id="statOptions">0</span>
+              <span class="stat-label" data-i18n="stats.options">possibilités</span>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-value" id="statDraws">0</span>
+              <span class="stat-label" data-i18n="stats.draws">tirages</span>
+            </div>
+            <div class="stat-chip stat-chip-wide">
+              <span class="stat-label" data-i18n="stats.last">Dernier résultat</span>
+              <span class="stat-value stat-value-last" id="statLast">—</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Panneau de gestion des choix -->
+        <aside class="panel card" aria-labelledby="panelTitle">
+          <h2 class="panel-title" id="panelTitle" data-i18n="panel.title">Mes choix</h2>
+          <p class="panel-sub" data-i18n="panel.subtitle">Trop d'hésitations ? Laisse la roulette décider.</p>
+
+          <label class="field-label" for="categorySelect" data-i18n="panel.category">Charger une catégorie prédéfinie</label>
+          <select id="categorySelect" class="select" autocomplete="off">
+            <option value="" data-i18n="category.placeholder">Choisir une catégorie…</option>
+            <option value="restaurants" data-i18n="cat.restaurants">Restaurants</option>
+            <option value="loisirs" data-i18n="cat.loisirs">Loisirs</option>
+            <option value="etudes" data-i18n="cat.etudes">Études</option>
+            <option value="voyages" data-i18n="cat.voyages">Voyages</option>
+            <option value="sport" data-i18n="cat.sport">Sport</option>
+            <option value="quotidien" data-i18n="cat.quotidien">Décisions quotidiennes</option>
+          </select>
+
+          <label class="field-label" for="optionInput" data-i18n="panel.addLabel">Ajouter une option</label>
+          <div class="add-row">
+            <input type="text" id="optionInput" class="text-input" maxlength="60" autocomplete="off"
+                   data-i18n-placeholder="panel.inputPlaceholder" placeholder="Ex. : Pizza">
+            <button type="button" class="btn btn-primary btn-add" id="btnAdd" data-i18n="buttons.add">Ajouter</button>
+          </div>
+          <p class="msg" id="panelMsg" role="status" aria-live="polite"></p>
+
+          <div class="list-head">
+            <span data-i18n="panel.list">Options</span>
+            <span class="list-count" id="optionsCount">0</span>
+          </div>
+          <ul class="options-list" id="optionsList"></ul>
+
+          <div class="panel-actions">
+            <button type="button" class="btn btn-primary" id="btnBuild" data-i18n="buttons.build">Construire la roue</button>
+            <button type="button" class="btn btn-soft" id="btnClear" data-i18n="buttons.clearAll">Tout effacer</button>
+          </div>
+
+          <p class="storage-note" data-i18n="panel.storageNote">Vos données sont conservées localement sur cet appareil, dans votre navigateur.</p>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- ============================ HISTORIQUE ============================ -->
+    <section class="view" id="viewHistory">
+      <div class="history-wrap">
+        <div class="card history-card">
+          <div class="history-head">
+            <h2 data-i18n="history.title">Historique des tirages</h2>
+            <span class="history-count" id="historyCount">0</span>
+            <button type="button" class="btn btn-soft-danger" id="btnClearHistory" data-i18n="history.clear">Effacer tout</button>
+          </div>
+          <p class="empty-state" id="historyEmpty" data-i18n="history.empty">Aucun tirage pour le moment.</p>
+          <ul class="history-list" id="historyList"></ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================ PIED DE PAGE ============================ -->
+  <footer class="site-footer">by <strong>LuksCorp</strong></footer>
+
+  <!-- ============================ MODALE DE RÉSULTAT ============================ -->
+  <div class="modal" id="resultModal" role="dialog" aria-modal="true" aria-labelledby="resultTitle" hidden>
+    <div class="modal-card result-card">
+      <p class="result-overline" id="resultTitle" data-i18n="modal.title">Le choix gagnant !</p>
+      <p class="result-name" id="resultName">—</p>
+      <p class="result-among" id="resultAmong"></p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-primary" id="btnAgain" data-i18n="modal.again">Recommencer</button>
+        <button type="button" class="btn btn-ghost" id="btnCloseResult" data-i18n="modal.close">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ MODALE DE PARAMÈTRES ============================ -->
+  <div class="modal" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" hidden>
+    <div class="modal-card settings-card">
+      <div class="modal-head">
+        <h2 id="settingsTitle" data-i18n="settings.title">Paramètres</h2>
+        <button type="button" class="icon-btn" id="btnCloseSettings" data-i18n-aria="settings.close" aria-label="Fermer les paramètres">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <span class="setting-name" data-i18n="settings.sound">Effets sonores</span>
+          <span class="setting-hint" data-i18n="settings.soundHint">Sons discrets lors des interactions et des tirages.</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="soundToggle" checked>
+          <span class="slider" aria-hidden="true"></span>
+          <span class="sr-only" data-i18n="settings.sound">Effets sonores</span>
+        </label>
+      </div>
+
+      <div class="setting-row column">
+        <span class="setting-name" data-i18n="settings.theme">Thème</span>
+        <div class="seg" id="themeSeg" role="group" aria-label="Thème" data-i18n-aria="settings.theme">
+          <button type="button" class="seg-btn" data-theme-choice="light" data-i18n="settings.light">Clair</button>
+          <button type="button" class="seg-btn" data-theme-choice="dark" data-i18n="settings.dark">Sombre</button>
+        </div>
+      </div>
+
+      <div class="setting-row column">
+        <span class="setting-name" data-i18n="settings.palette">Palette de la roue</span>
+        <div class="palette-opts" id="paletteOpts" role="group" aria-label="Palette de la roue" data-i18n-aria="settings.palette">
+          <button type="button" class="palette-opt" data-palette="classique">
+            <span class="swatch" aria-hidden="true" style="background:conic-gradient(#6C4CF1 0 45deg,#3B82F6 0 90deg,#EC4899 0 135deg,#EF4444 0 180deg,#F97316 0 225deg,#FACC15 0 270deg,#10B981 0 315deg,#14B8A6 0 360deg)"></span>
+            <span data-i18n="palette.classique">Classique</span>
+          </button>
+          <button type="button" class="palette-opt" data-palette="pastel">
+            <span class="swatch" aria-hidden="true" style="background:conic-gradient(#A5B4FC 0 45deg,#F9A8D4 0 90deg,#FDE68A 0 135deg,#BBF7D0 0 180deg,#99F6E4 0 225deg,#FCA5A5 0 270deg,#C4B5FD 0 315deg,#FDBA74 0 360deg)"></span>
+            <span data-i18n="palette.pastel">Pastel</span>
+          </button>
+          <button type="button" class="palette-opt" data-palette="ocean">
+            <span class="swatch" aria-hidden="true" style="background:conic-gradient(#0EA5E9 0 45deg,#2563EB 0 90deg,#7C3AED 0 135deg,#06B6D4 0 180deg,#4F46E5 0 225deg,#0891B2 0 270deg,#6366F1 0 315deg,#3B82F6 0 360deg)"></span>
+            <span data-i18n="palette.ocean">Océan</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="setting-row column">
+        <span class="setting-name" data-i18n="settings.language">Langue</span>
+        <div class="seg" role="group" aria-label="Langue" data-i18n-aria="settings.language">
+          <button type="button" class="seg-btn lang-btn" data-lang="fr">FR</button>
+          <button type="button" class="seg-btn lang-btn" data-lang="en">ENG</button>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-soft-danger btn-reset" id="btnResetSettings" data-i18n="settings.reset">Réinitialiser les paramètres</button>
+      <p class="storage-note" data-i18n="panel.storageNote">Vos données sont conservées localement sur cet appareil, dans votre navigateur.</p>
+    </div>
+  </div>
+
+  <!-- ============================ MODALE DE CONFIRMATION ============================ -->
+  <div class="modal" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" hidden>
+    <div class="modal-card confirm-card">
+      <h2 class="confirm-title" id="confirmTitle">—</h2>
+      <p class="confirm-text" id="confirmText">—</p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="btnConfirmNo" data-i18n="confirm.no">Annuler</button>
+        <button type="button" class="btn btn-primary" id="btnConfirmYes" data-i18n="confirm.yes">Confirmer</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <noscript>
+    <p class="noscript-warning">ChoixFacile nécessite JavaScript. / ChoixFacile requires JavaScript.</p>
+  </noscript>
+
+  <script src="script.js"></script>
+</body>
+</html>
